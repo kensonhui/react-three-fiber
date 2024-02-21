@@ -25,14 +25,14 @@ const Home = () => {
   };
   const audjustPlaneForScreenSize = () => {
     let screenScale, screenPosition;
-    screenPosition = [0, -6.5, -43];
+    screenPosition = [0, 6.5, 5];
     let rotation = [0.1, 4.7, 0];
     if (window.innerWidth < 760) {
       screenScale = [1.5, 1.5, 1.5];
       screenPosition = [0, -1.5, 0];
     } else {
-      screenScale = [3, 3, 3];
-      screenPosition = [0, -4, -4];
+      screenScale = [5, 5, 5];
+      screenPosition = [0, -4, -100];
     }
 
     return [screenScale, screenPosition];
@@ -68,12 +68,12 @@ const Home = () => {
             setIsRotating={setIsRotating}
           />
           <Bird />
-          <Plane
+          {/* <Plane
             planePosition={planePosition}
             planeScale={planeScale}
             isRotating={isRotating}
             rotation={[0, 20, 0]}
-          />
+          /> */}
         </Suspense>
       </Canvas>
     </section>
