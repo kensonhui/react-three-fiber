@@ -60,7 +60,13 @@ const Home = () => {
             isRotating={isRotating}
             setIsRotating={setIsRotating}
           /> */}
-          <MiningTown position={[0, 0, 0]} scale={[0.1, 0.1, 0.1]} />
+          <MiningTown
+            position={[0, -0.6, 2.5]}
+            scale={[0.1, 0.1, 0.1]}
+            rotation={[0.1 * Math.PI, 0 * Math.PI, 0]}
+            isRotating={isRotating}
+            setIsRotating={setIsRotating}
+          />
           <Bird />
           <Plane
             planePosition={planePosition}
