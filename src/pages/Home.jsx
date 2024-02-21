@@ -7,6 +7,7 @@ import Sky from "../models/Sky";
 import Bird from "../models/Bird";
 import Plane from "../models/Plane";
 import MiningTown from "../models/MiningTown";
+import HomeInfo from "../components/HomeInfo";
 
 const Home = () => {
   const [isRotating, setIsRotating] = useState(false);
@@ -38,10 +39,14 @@ const Home = () => {
     return [screenScale, screenPosition];
   };
 
+  const [currentStage, setCurrentStage] = useState();
   const [screenScale, screenPosition, rotation] = audjustIslandForScreenSize();
   const [planeScale, planePosition] = audjustPlaneForScreenSize();
   return (
     <section className="w-full h-screen relative">
+      <div className="absolute top-28 left-0 right-0 z-10 flex items-cemter justify-center">
+        {currentStage && <HomeInfo currentStage={currentStage} />}
+      </div>
       <Canvas
         className={`w-full h-screen bg-transparent ${
           isRotating ? "cursor-grabbing" : "cursor-grab"
@@ -61,11 +66,12 @@ const Home = () => {
             setIsRotating={setIsRotating}
           /> */}
           <MiningTown
-            position={[0, -0.6, 2.5]}
+            position={[0, -0.3, 2.7]}
             scale={[0.1, 0.1, 0.1]}
             rotation={[0.1 * Math.PI, 0 * Math.PI, 0]}
             isRotating={isRotating}
             setIsRotating={setIsRotating}
+            setCurrentStage={setCurrentStage}
           />
           <Bird />
           {/* <Plane

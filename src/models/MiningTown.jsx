@@ -4,14 +4,18 @@ import miningTown from "../assets/3d/mining_town.glb";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useAnimations, useGLTF } from "@react-three/drei";
 
-const MiningTown = ({ isRotating, setIsRotating, ...props }) => {
+const MiningTown = ({
+  isRotating,
+  setIsRotating,
+  setCurrentStage,
+  ...props
+}) => {
   const townRef = useRef();
   const { nodes, materials, scene, animations } = useGLTF(miningTown, townRef);
   const { actions, mixer } = useAnimations(animations, townRef);
 
   useEffect(() => {
     if (mixer && animations.length > 0) {
-      console.log(animations[0]);
       const animationAction = mixer.clipAction(animations[0], townRef.current);
       animationAction.play();
     }
@@ -44,7 +48,32 @@ const MiningTown = ({ isRotating, setIsRotating, ...props }) => {
     setIsRotating(false);
   };
 
+  const handleMoveEvent = (event) => {
+    if (event.type == "touchmove") {
+      handleTouchMove(event);
+    } else {
+      handlePointerMove(event);
+    }
+  };
+
   const handlePointerMove = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (isRotating) {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+
+      const delta = (clientX - lastX.current) / viewport.width;
+
+      townRef.current.rotation.y += delta * 0.01 * Math.PI;
+
+      lastX.current = clientX;
+
+      rotationSpeed.current = delta * 0.01 * Math.PI;
+    }
+  };
+
+  const handleTouchMove = (e) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -105,23 +134,23 @@ const MiningTown = ({ isRotating, setIsRotating, ...props }) => {
        */
       const normalizedRotation =
         ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-
       // Set the current stage based on the island's orientation
       switch (true) {
-        case normalizedRotation >= 5.45 && normalizedRotation <= 5.85:
-          // setCurrentStage(4);
+        case (normalizedRotation <= 0.75 && normalizedRotation >= 0) ||
+          (normalizedRotation >= 5.6 && normalizedRotation <= 2 * Math.PI):
+          setCurrentStage(1);
           break;
-        case normalizedRotation >= 0.85 && normalizedRotation <= 1.3:
-          // setCurrentStage(3);
+        case normalizedRotation >= 0.85 && normalizedRotation <= 2.3:
+          setCurrentStage(4);
           break;
-        case normalizedRotation >= 2.4 && normalizedRotation <= 2.6:
-          // setCurrentStage(2);
+        case normalizedRotation >= 3.4 && normalizedRotation <= 3.6:
+          setCurrentStage(3);
           break;
-        case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
-          // setCurrentStage(1);
+        case normalizedRotation >= 4.25 && normalizedRotation <= 5.5:
+          setCurrentStage(2);
           break;
         default:
-        // setCurrentStage(null);
+          setCurrentStage(null);
       }
     }
   });
@@ -130,16 +159,14 @@ const MiningTown = ({ isRotating, setIsRotating, ...props }) => {
     const canvas = gl.domElement;
     canvas.addEventListener("pointerdown", handlePointerDown);
     canvas.addEventListener("pointerup", handlePointerUp);
-    canvas.addEventListener("pointermove", handlePointerMove);
-    window.addEventListener("keydown", handleKeyDown);
-    window.addEventListener("keyup", handleKeyUp);
+    canvas.addEventListener("touchmove", handleMoveEvent);
+    canvas.addEventListener("pointermove", handleMoveEvent);
 
     return () => {
       canvas.removeEventListener("pointerdown", handlePointerDown);
       canvas.removeEventListener("pointerup", handlePointerUp);
-      canvas.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("keydown", handleKeyDown);
-      window.removeEventListener("keyup", handleKeyUp);
+      canvas.removeEventListener("pointermove", handleMoveEvent);
+      canvas.removeEventListener("touchmove", handleMoveEvent);
     };
   }, [
     gl,
