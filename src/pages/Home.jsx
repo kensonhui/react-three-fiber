@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import Loader from "../components/Loader";
@@ -42,6 +42,7 @@ const Home = () => {
   const [currentStage, setCurrentStage] = useState();
   const [screenScale, screenPosition, rotation] = audjustIslandForScreenSize();
   const [planeScale, planePosition] = audjustPlaneForScreenSize();
+  const skyRef = useRef();
   return (
     <section className="w-full h-screen relative">
       <div className="absolute top-28 left-0 right-0 z-10 flex items-cemter justify-center">
@@ -57,7 +58,7 @@ const Home = () => {
           <directionalLight position={[1, 1, 1]} intensity={2} />
           <ambientLight intensity={0.5} />
           <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" />
-          <Sky isRotating={isRotating} />
+          <Sky skyRef={skyRef} isRotating={isRotating} />
           {/* <Island
             position={screenPosition}
             scale={screenScale}
@@ -72,6 +73,7 @@ const Home = () => {
             isRotating={isRotating}
             setIsRotating={setIsRotating}
             setCurrentStage={setCurrentStage}
+            skyRef={skyRef}
           />
           <Bird />
           {/* <Plane

@@ -8,6 +8,7 @@ const MiningTown = ({
   isRotating,
   setIsRotating,
   setCurrentStage,
+  skyRef,
   ...props
 }) => {
   const townRef = useRef();
@@ -66,6 +67,7 @@ const MiningTown = ({
       const delta = (clientX - lastX.current) / viewport.width;
 
       townRef.current.rotation.y += delta * 0.01 * Math.PI;
+      skyRef.current.rotation.y += delta * 0.01 * Math.PI;
 
       lastX.current = clientX;
 
@@ -83,6 +85,7 @@ const MiningTown = ({
       const delta = (clientX - lastX.current) / viewport.width;
 
       townRef.current.rotation.y += delta * 0.01 * Math.PI;
+      skyRef.current.rotation.y += delta * 0.01 * Math.PI;
 
       lastX.current = clientX;
 
@@ -114,6 +117,8 @@ const MiningTown = ({
       }
 
       townRef.current.rotation.y += rotationSpeed.current;
+      // Rotate the sky as well
+      skyRef.current.rotation.y += rotationSpeed.current;
     } else {
       const rotation = townRef.current.rotation.y;
       /**
