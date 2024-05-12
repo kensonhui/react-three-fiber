@@ -149,7 +149,7 @@ const MiningTown = ({
         case normalizedRotation >= 0.85 && normalizedRotation <= 2.3:
           setCurrentStage(4);
           break;
-        case normalizedRotation >= 3.4 && normalizedRotation <= 3.6:
+        case normalizedRotation >= 2.7 && normalizedRotation <= 3.8:
           setCurrentStage(3);
           break;
         case normalizedRotation >= 4.25 && normalizedRotation <= 5.5:

@@ -9,10 +9,13 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={"About"} />
-          <Route path="/projects" element={"Projects"} />
-          <Route path="/attributions" element={<Attributions />} />
+          <Route path="/react-three-fiber/" element={<Home />} />
+          <Route path="/react-three-fiber/about" element={"About"} />
+          <Route path="/react-three-fiber/projects" element={"Projects"} />
+          <Route
+            path="/react-three-fiber/attributions"
+            element={<Attributions />}
+          />
         </Routes>
       </Router>
     </main>

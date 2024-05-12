@@ -39,7 +39,7 @@ const Home = () => {
     return [screenScale, screenPosition];
   };
 
-  const [currentStage, setCurrentStage] = useState();
+  const [currentStage, setCurrentStage] = useState(1);
   const [screenScale, screenPosition, rotation] = audjustIslandForScreenSize();
   const [planeScale, planePosition] = audjustPlaneForScreenSize();
   const skyRef = useRef();

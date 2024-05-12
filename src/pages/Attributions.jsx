@@ -10,12 +10,14 @@ const Attributions = () => {
         <a
           href="https://sketchfab.com/3d-models/mining-town-c4196438ce3d4679baf0137cd3999940"
           target="_blank"
+          className="text-blue-600 underline"
         >
           Mining Town - LowPolyBoy
         </a>
         <a
           href="https://sketchfab.com/3d-models/phoenix-bird-844ba0cf144a413ea92c779f18912042"
           target="_blank"
+          className="text-blue-600 underline"
         >
           Phoneix Bird - NORBERTO-3D
         </a>
