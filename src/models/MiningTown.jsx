@@ -50,6 +50,7 @@ const MiningTown = ({
   };
 
   const handleMoveEvent = (event) => {
+    // TODO: Refactor to consolidate handlePointerMove and handleTouchMove
     if (event.type == "touchmove") {
       handleTouchMove(event);
     } else {

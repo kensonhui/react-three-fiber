@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import Home from "./pages/Home"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Attributions from "./pages/Attributions";
 
 function App() {
   return (
@@ -9,15 +10,13 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={'About'} />
-          <Route path="/projects" element={'Projects'} />
+          <Route path="/about" element={"About"} />
+          <Route path="/projects" element={"Projects"} />
+          <Route path="/attributions" element={<Attributions />} />
         </Routes>
       </Router>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

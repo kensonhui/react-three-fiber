@@ -45,7 +45,7 @@ const Home = () => {
   const skyRef = useRef();
   return (
     <section className="w-full h-screen relative">
-      <div className="absolute top-28 left-0 right-0 z-10 flex items-cemter justify-center">
+      <div className="absolute top-24 left-0 right-0 z-10 flex items-cemter justify-center">
         {currentStage && <HomeInfo currentStage={currentStage} />}
       </div>
       <Canvas
@@ -55,8 +55,8 @@ const Home = () => {
         camera={{ near: 0.1, far: 1000 }}
       >
         <Suspense fallback={<Loader />}>
-          <directionalLight position={[1, 1, 1]} intensity={2} />
-          <ambientLight intensity={0.5} />
+          <directionalLight position={[1, 1, 1]} intensity={3} />
+          <ambientLight intensity={1} />
           <hemisphereLight skyColor="#b1e1ff" groundColor="#000000" />
           <Sky skyRef={skyRef} isRotating={isRotating} />
           {/* <Island
@@ -67,7 +67,7 @@ const Home = () => {
             setIsRotating={setIsRotating}
           /> */}
           <MiningTown
-            position={[0, -0.3, 2.7]}
+            position={[0, -0.5, 2.9]}
             scale={[0.1, 0.1, 0.1]}
             rotation={[0.1 * Math.PI, 0 * Math.PI, 0]}
             isRotating={isRotating}
